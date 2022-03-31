@@ -4,9 +4,9 @@ statement -> dic_st | math_st | io | if_s | _e_
 dic_st -> dtype d_prod
 d_prod -> d_nat | d_prod,d_nat
 d_nat -> ID | math_st
-math_st -> ID = VALUE | ID = math_st
+math_st -> ID equ VALUE | ID equ math_st
 io -> cin >> ID | cout << VALUE
-if_s -> if o_r_br comp_st c_r_br then o_c_br statements c_c_br | if o_r_br comp_st c_r_br then o_c_br statements c_c_br else o_c_br statements c_c_br
+if_s -> if_token o_r_br comp_st c_r_br then_token o_c_br statements c_c_br | if_token o_r_br comp_st c_r_br then_token o_c_br statements c_c_br else_token o_c_br statements c_c_br
 VALUE -> VALUE math_op VALUE | ID | NUMBER | character | NULL | o_r_br VALUE c_r_br
 comp_st -> VALUE comp_op VALUE | o_r_br comp_st c_r_br AND o_r_br comp_st c_r_br | o_r_br comp_st c_r_br OR o_r_br comp_st c_r_br
 
@@ -19,5 +19,6 @@ o_r_br -> (
 c_r_br -> )
 o_c_br -> {
 c_c_br -> }
+equ -> =
 */
 
