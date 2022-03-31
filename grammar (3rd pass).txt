@@ -8,7 +8,7 @@ math_st -> ID = VALUE
 io -> cin >> ID | cout << VALUE
 if_s -> if(comp_st){statements} | if(comp_st){statements}else{statements}
 VALUE -> VALUE math_op VALUE | ID | NUMBER | character | NULL
-math_op -> + | - | * | /
+math_op -> + | - | * | / | %
 dtype -> int | real | char
 comp_st -> VALUE comp_op VALUE | (comp_st) AND (comp_st) | (comp_st) OR (comp_st)
 comp_op -> < | > | >= | <= | == | !=
