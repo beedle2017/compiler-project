@@ -8,12 +8,14 @@ math_st -> ID equ VALUE | ID equ math_st
 io -> input i_cas ID | output o_cas VALUE
 if_st -> if_token o_r_br comp_st c_r_br then_token o_c_br statements c_c_br CONT
 CONT -> else_token o_c_br statements c_c_br | _e_
-VALUE -> VALUE math_op VALUE | ID | NUMBER | character | NULL | o_r_br VALUE c_r_br
 comp_st -> VALUE comp_op VALUE | o_r_br comp_st c_r_br r_o o_r_br comp_st c_r_br
-
+VALUE -> VALUE add_op TERM | add_op TERM | TERM
+TERM -> TERM mul_op FAC | FAC 
+FAC -> "ID" | "NUMBER" | "(" VALUE ")" 
 
 /*
-math_op -> + | - | * | / | %
+add_op -> + | - 
+mul_op -> * | / | %
 dtype -> int | real | char
 comp_op -> < | > | >= | <= | == | !=
 o_r_br -> (
