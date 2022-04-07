@@ -1,6 +1,8 @@
 #include<string>
 using namespace std;
 
+#define MAIN
+
 bool isValidDelimeter(string ch){
     if (ch == " " || ch == "+" || ch == "-" || ch == "*" || ch == "%" ||
         ch == "," || ch == ";" || ch == ">" || ch == "<" || ch == "==" || ch == "!=" ||
