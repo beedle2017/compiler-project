@@ -5,7 +5,9 @@ dec_st -> dtype d_prod
 d_prod -> d_nat | d_prod,d_nat
 d_nat -> ID | math_st
 math_st -> ID equ VALUE | ID equ math_st
-io -> input i_cas ID | output o_cas VALUE
+io -> "input" inp | "output" opt ;
+inp -> "i_cas" "ID" | inp "i_cas" "ID" ;
+opt -> "o_cas" VALUE | opt "o_cas" VALUE ;
 if_st -> if_token o_r_br comp_st c_r_br then_token o_c_br statements c_c_br CONT
 CONT -> else_token o_c_br statements c_c_br | _e_
 comp_st -> VALUE comp_op VALUE | o_r_br comp_st c_r_br r_o o_r_br comp_st c_r_br
