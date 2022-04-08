@@ -1,93 +1,129 @@
 #include<string>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-#define MAIN
-
-bool isValidDelimeter(string ch){
-    if (ch == " " || ch == "+" || ch == "-" || ch == "*" || ch == "%" ||
-        ch == "," || ch == ";" || ch == ">" || ch == "<" || ch == "==" || ch == "!=" ||
-        ch == "?" || ch == ":" || ch == ">>" || ch == "<<" || ch == "=" || 
-        ch == "(" || ch == ")" || ch == "{" || ch == "}" || 
-        ch == "\n" ) {
+bool isValidKeyWord(string token){
+    if(token == "main" || token == "(" || token == ")" || token == "{" || token == "}" ||
+        token == "+" || token == "-" || token == "*" || token == "/" || token == "%" ||
+        token == "int" || token == "real" || token == "char" ||
+        token == "<" || token == ">" || token == "<=" || token == "<=" || token == "==" || token == "!=" || token == "=" ||
+        token == "<<" || token == ">>" || token == "," || token == ";" || token == "and" || token == "or" ||
+        token == "cout" || token == "cin")
 
             return true;
-    }
 
     return false;
 }
 
-bool isValidOperator(char ch){
-    if (ch == '+' || ch == '-' || ch == '*' || ch == '%' ||
-        ch == '>' || ch == '<' || ch == '=' || 
-        ch == '?' || ch == ':') {
+bool isSpecialCharacter(char ch){
+    if((ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122) || (ch >= 48 && ch <=57) || ch == 95){
+        return false;
+    }
+    return true;
+}
+
+bool isValidInteger(char integer) {
+    if(integer >= 48 && integer <=57){
         return true;
     }
-
     return false;
 }
 
-bool isValidIdentifier(string identifier){
-    string s(1, identifier[0]);
+bool isConstant(string token) {
+    if(isValidInteger(token[0]) || token[0] == '\''){
+        return true;
+    }
+    return false;
+}
 
-    if (identifier[0] == '0' || identifier[0] == '1' || identifier[0] == '2' || identifier[0] == '3' || identifier[0] == '4' || 
-        identifier[0] == '5' || identifier[0] == '6' || identifier[0] == '7' || identifier[0] == '8' || identifier[0] == '9' ||
-        identifier[0] == '\'' || isValidDelimeter(s) == true) {
+string getKeyFromGrammar(string value){
+    if(value == "main"){
+        return "MAIN";
+    } else if(value == "+" || value == "-"){
+        return "add_op";
+    } else if(value == "*" || value == "/" || value == "%"){
+        return "mul_op";
+    } else if(value == "int" || value == "real" || value == "char"){
+        return "d_type";
+    } else if(value == "<" || value == ">" || value == ">=" || 
+                value == "<=" || value == "==" || value == "!="){
+        return "comp_op";
+    } else if(value == "("){
+        return "open_first_bracket";
+    } else if(value == ")"){
+        return "close_first_bracket";
+    } else if(value == "{"){
+        return "open_second_bracket";
+    } else if(value == "}"){
+        return "close_second_bracket";
+    } else if(value == "="){
+        return "equals";
+    } else if(value == ">>"){
+        return "i_cas";
+    } else if(value == "<<"){
+        return "o_cas";
+    } else if(value == "cin"){
+        return "input";
+    } else if(value == "cout"){
+        return "output";
+    } else if(value == "if"){
+        return "if_token";
+    } else if(value == "else"){
+        return "else_token";
+    } else if(value == "then"){
+        return "then_token";
+    } else if(value == "and" || value == "or" || value == "not"){
+        return "relational_op";
+    } else if(isConstant(value)){
+        return "VALUE";
+    } else if(value == ";"){
+        return "EOL";
+    } else {
+        return "ID";
+    }
+}
+
+
+class Tokens {
+    vector<pair<string, string>> tokensDictionary;
+    vector<string> tokens;
+
+    public:
+        Tokens(){
             
-        return false;
-    }
+        }
 
-    return true;
-}
+        bool isSpaceToken(string str){
+            if(str == "")
+                return true;
+            return false;
+        }
 
-bool isValidCharacter(string character) {
-    if (character[0] == '\'' && character[2] == '\'') {
-        return true;
-    }
-    return false;
-}
+        void addPair(string key, string value){
+            tokensDictionary.push_back(make_pair(key, value));
+        }
 
-bool isValidInteger(string str) {
-    int len = str.length();
+        void addToken(string token){
+            string key = getKeyFromGrammar(token);
+            string value = token;
 
-    if (len == 0)
-        return false;
+            if(!isSpaceToken(token))
+                addPair(key, value);
+        }
 
-    for (int i = 0; i < len; i++) {
-        if (str[i] != '0' && str[i] != '1' && str[i] != '2' && str[i] != '3' && str[i] != '4' &&
-            str[i] != '5' && str[i] != '6' && str[i] != '7' && 
-            str[i] != '8' && str[i] != '9' || (str[i] == '-' && i > 0))
-        return false;
-    }
+        void displayTokensList(){
+            // for(string token : tokens){
+            //     cout<<token<<"\n";
+            //     // cout<<token.length()<<endl;
+            // }
+            for(auto item : tokensDictionary){
+                cout<<item.first<<" -> "<<item.second<<endl;
+            }
+        }
 
-    return true;
-}
+        vector<pair<string, string>> getTokenDictionary() {
+            return tokensDictionary;
+        }
 
-bool isValidReal(string str){
-    int length = str.length();
-    bool hasDecimal = false;
-
-    if (length == 0)
-        return false;
-
-    for (int i = 0; i < length; i++) {
-        
-        if (str[i] != '0' && str[i] != '1' && str[i] != '2' && str[i] != '3' && str[i] != '4' &&
-            str[i] != '5' && str[i] != '6' && str[i] != '7' && 
-            str[i] != '8' && str[i] != '9' && str[i] != '.' || (str[i] == '-' && i > 0))
-                return false;
-
-        if (str[i] == '.')
-            hasDecimal = true;
-    }
-
-    return hasDecimal;
-}
-
-bool is_valid_keyword(char* str) {
-
-    if (!strcmp(str, "void") || !strcmp(str, "int") || !strcmp(str, "float") || 
-        !strcmp(str, "return") || !strcmp(str, "char") || !strcmp(str, "get") || !strcmp(str, "put")) 
-        return true;
-
-    return false;
-}
+};

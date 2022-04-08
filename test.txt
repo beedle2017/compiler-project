@@ -1,4 +1,0 @@
-main(){
-    int int int char;
-    cout<<cin;
-}

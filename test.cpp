@@ -2,80 +2,89 @@
 #include<vector>
 #include<string>
 #include<fstream>
+#include "utils.h"
 
 using namespace std;
 
-class Tokens {
-    vector<pair<string, string>> tokensDictionary;
-    vector<string> tokens;
-
-    public:
-        Tokens(){
-            
-        }
-
-        void addPair(string key, string value){
-            tokensDictionary.push_back(make_pair(key, value));
-        }
-
-        void addToken(string token){
-            tokens.push_back(token);
-        }
-
-        void displayTokensList(){
-            for(string token : tokens){
-                cout<<token<<"\n";
-            }
-        }
-
-};
-
-bool isValidToken(string token){
-    if(token == "main" || token == "(" || token == ")" || token == "{" || token == "}" ||
-       token == "+" || token == "-" || token == "*" || token == "/" || token == "%" ||
-       token == "int" || token == "real" || token == "char" ||
-       token == "<" || token == ">" || token == "<=" || token == "<=" || token == "==" || token == "!=" ||
-       token == "=" || token == "<<" || token == ">>" || token == "," || token == ";" || token == "and" || token == "or" ||
-       token == "cout" || token == "cin")
-
-            return true;
-
-    return false;
+void writeOutputToFile(vector<pair<string, string>> tokens){
+	ofstream file;
+	file.open("output.txt");
+    file<<"***TOKENS AFTER SCANNING INPUT FILE***"<<endl<<endl;
+	for(auto item : tokens){
+		file<<item.first<<" -> "<<item.second<<endl;
+	}
+	file.close();
 }
 
-
 void parseInputLine(Tokens *tokens_object, string inputLine){
-    int left = 0, right = 0;
-    while(right < inputLine.length()){
-        string token = inputLine.substr(left, right - left + 1);
-        // cout<<left<<","<<right<<endl;
+    inputLine = inputLine + " ";
+    
+    int left = 0;
+    string current_token = "";
+    string temp_token = "";
 
-        if(token == " "){
-            left = right + 1;
+    bool isValidKeyword = false;
+
+    bool wasSpecial = false, isSpecial = false;
+
+    while(left < inputLine.length()){
+        char current_character = inputLine[left];
+
+        isValidKeyword = isValidKeyWord(current_token);
+        isSpecial = isSpecialCharacter(current_character);
+
+        if(current_character == ' ' || current_character == '\n'){
+            if(current_token == ""){
+                left++;
+                continue;
+            } else {
+                // add current_token to list of tokens
+                // commit current_token
+                (*tokens_object).addToken(current_token);
+                current_token = "";
+            }
+        } else {
+            if(!wasSpecial && isSpecial){
+                // commit current_token
+                (*tokens_object).addToken(current_token);
+                current_token = "";
+            } else if(wasSpecial){
+                temp_token = current_token + current_character;
+                if(!isValidKeyWord(temp_token) && isValidKeyWord(current_token)){
+                    // commit current token
+                    (*tokens_object).addToken(current_token);
+                    current_token = "";
+                }
+            }
+            if(current_character == '\''){
+                string charConstant = inputLine.substr(left,3);
+                (*tokens_object).addToken(charConstant);
+
+                left += 3;
+                current_character = inputLine[left];
+            }
+            current_token += current_character;
         }
 
-        if(isValidToken(token)){
-            (*tokens_object).addToken(token);
-            left = right + 1;
-            // cout<<left<<","<<right<<endl;
-        }
-        right++;
-        // cout<<left<<","<<right<<endl<<endl;
+        wasSpecial = isSpecial;
+        left++;
     }
 }
 
 int main(){
-    string filename = "test.txt";
+    string filename = "";
+    cout<<"Enter File Name: ";
+    cin>>filename;
     ifstream file(filename);
 
     string inputLine = "";
     Tokens tokens_object = Tokens();
 
     while(getline(file, inputLine)){
-        // cout<<inputLine<<endl;
         parseInputLine(&tokens_object, inputLine);
     }
     
-    tokens_object.displayTokensList();
-
+    // tokens_object.displayTokensList();
+    vector<pair<string, string>> tokensDictionary = tokens_object.getTokenDictionary();
+    writeOutputToFile(tokensDictionary);
 }

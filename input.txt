@@ -1,0 +1,6 @@
+main(){
+    if(ch == 5) then{
+        cout<< 'a';
+        int a = 52;
+    };
+} 
