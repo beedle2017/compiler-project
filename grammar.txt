@@ -13,7 +13,7 @@ CONT -> else_token open_second_bracket statements close_second_bracket | _e_
 comp_st -> VALUE comp_op VALUE | open_first_bracket comp_st close_first_bracket relational_op open_first_bracket comp_st close_first_bracket
 VALUE -> VALUE add_op TERM | add_op TERM | TERM
 TERM -> TERM mul_op FAC | FAC 
-FAC -> "ID" | "NUMBER" | "(" VALUE ")" 
+FAC -> "ID" | "NUMBER" | "CHARACTER" | "(" VALUE ")" 
 
 /*
 add_op -> + | - 
