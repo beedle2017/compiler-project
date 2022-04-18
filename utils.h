@@ -1,6 +1,7 @@
 #include<string>
 #include<iostream>
 #include<vector>
+#include<regex>
 using namespace std;
 
 bool isValidKeyWord(string token){
@@ -35,6 +36,11 @@ bool isConstant(string token) {
         return true;
     }
     return false;
+}
+
+bool isValidID(string token) {
+    string pattern = "^[A-Za-z0-9_]+$";
+    return regex_match(token, regex(pattern));
 }
 
 string getKeyFromGrammar(string value){
@@ -79,14 +85,18 @@ string getKeyFromGrammar(string value){
         return "VALUE";
     } else if(value == ";"){
         return "EOL";
-    } else {
+    } else if(value == ","){
+        return "COMMA";
+    } else if(isValidID(value)) {
         return "ID";
+    } else {
+        return "invalid";
     }
 }
 
 
 class Tokens {
-    vector<pair<string, string>> tokensDictionary;
+    vector<pair<pair<string, string>, int>> tokensDictionary;
     vector<string> tokens;
 
     public:
@@ -100,16 +110,16 @@ class Tokens {
             return false;
         }
 
-        void addPair(string key, string value){
-            tokensDictionary.push_back(make_pair(key, value));
+        void addPair(string key, string value, int line){
+            tokensDictionary.push_back(make_pair(make_pair(key, value), line));
         }
 
-        void addToken(string token){
+        void addToken(string token, int line){
             string key = getKeyFromGrammar(token);
             string value = token;
 
             if(!isSpaceToken(token))
-                addPair(key, value);
+                addPair(key, value, line);
         }
 
         void displayTokensList(){
@@ -118,11 +128,11 @@ class Tokens {
             //     // cout<<token.length()<<endl;
             // }
             for(auto item : tokensDictionary){
-                cout<<item.first<<" -> "<<item.second<<endl;
+                cout<<item.first.first<<" -> "<<item.first.second<<"@"<<item.second<<endl;
             }
         }
 
-        vector<pair<string, string>> getTokenDictionary() {
+        vector<pair<pair<string, string>, int>> getTokenDictionary() {
             return tokensDictionary;
         }
 

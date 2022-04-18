@@ -1,10 +1,5 @@
 main(){
-    if(a<10) then{
-        a=a*a;
-        if(a<   5) then {
-            a = a - 3;
-        };
-        else a = a -7;
-    };
-    else a=a/2;
-} 
+    char x = 'a';
+    int a = 8;
+    cout<<a;
+}

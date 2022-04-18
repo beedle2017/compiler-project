@@ -6,17 +6,21 @@
 
 using namespace std;
 
-void writeOutputToFile(vector<pair<string, string>> tokens){
+void writeOutputToFile(vector<pair<pair<string, string>, int>> tokens){
 	ofstream file;
 	file.open("output.txt");
     file<<"***TOKENS AFTER SCANNING INPUT FILE***"<<endl<<endl;
 	for(auto item : tokens){
-		file<<item.first<<" -> "<<item.second<<endl;
+        if(item.first.first != "VALUE"){
+            file<<item.first.first<<" -> "<<item.first.second<<"@"<<item.second<<endl;
+        } else {
+            file<<item.first.first<<" -> "<<item.first.first<<"@"<<item.second<<endl;
+        }
 	}
 	file.close();
 }
 
-void parseInputLine(Tokens *tokens_object, string inputLine){
+void parseInputLine(Tokens *tokens_object, string inputLine, int lineNumber){
     inputLine = inputLine + " ";
     
     int left = 0;
@@ -40,25 +44,25 @@ void parseInputLine(Tokens *tokens_object, string inputLine){
             } else {
                 // add current_token to list of tokens
                 // commit current_token
-                (*tokens_object).addToken(current_token);
+                (*tokens_object).addToken(current_token, lineNumber);
                 current_token = "";
             }
         } else {
             if(!wasSpecial && isSpecial){
                 // commit current_token
-                (*tokens_object).addToken(current_token);
+                (*tokens_object).addToken(current_token, lineNumber);
                 current_token = "";
             } else if(wasSpecial){
                 temp_token = current_token + current_character;
                 if(!isValidKeyWord(temp_token) && isValidKeyWord(current_token)){
                     // commit current token
-                    (*tokens_object).addToken(current_token);
+                    (*tokens_object).addToken(current_token, lineNumber);
                     current_token = "";
                 }
             }
             if(current_character == '\''){
                 string charConstant = inputLine.substr(left,3);
-                (*tokens_object).addToken(charConstant);
+                (*tokens_object).addToken(charConstant, lineNumber);
 
                 left += 3;
                 current_character = inputLine[left];
@@ -78,13 +82,15 @@ int main(){
     ifstream file(filename);
 
     string inputLine = "";
+    int lineNumber = 1;
     Tokens tokens_object = Tokens();
 
     while(getline(file, inputLine)){
-        parseInputLine(&tokens_object, inputLine);
+        parseInputLine(&tokens_object, inputLine, lineNumber);
+        lineNumber++;
     }
     
     // tokens_object.displayTokensList();
-    vector<pair<string, string>> tokensDictionary = tokens_object.getTokenDictionary();
+    vector<pair<pair<string, string>, int>> tokensDictionary = tokens_object.getTokenDictionary();
     writeOutputToFile(tokensDictionary);
 }
