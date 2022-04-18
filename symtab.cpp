@@ -33,7 +33,7 @@ class Attribute
 
     void print()
     {
-        cout << d_type << "\t" << line_no ;
+        cout << d_type << "\t\t\t" << line_no ;
     }
     friend class Symtable;
 };
@@ -73,12 +73,15 @@ class Symtable
     {
         if(current_scope_level >= 0)
         {
+            cout<<"\n\n-------------------------------------------------------------------";
+            cout<<"\nVariable_Name\tVariable_Data_Type\tLine_of_Declaration\tScope_Level\n";
             for(auto item: hashtabs[current_scope_level])
             {
-                cout << item.first << "\t" ;
+                cout << item.first << "\t\t     " ;
                 item.second.print();
-                cout<<"\t"<<current_scope_level<<endl;
+                cout<<"\t\t    "<<current_scope_level<<endl;
             }
+            cout<<"----------------------------------------------------------------------";
             cout<<endl<<endl;
             --current_scope_level;
             hashtabs.pop_back();
@@ -117,7 +120,7 @@ ostream& operator<<(ostream& os, const vector<S>& vector)
     // Printing all the elements
     // using <<
     for (auto element : vector) {
-        os << element.first << "," << element.second << " "; 
+        os << element.first << "," << element.second << "   "; 
     }
     return os;
 }
@@ -166,8 +169,9 @@ int main()
     keywordSet.insert("not");
     // keywordSet.insert(";");
     keywordSet.insert(",");
-    keywordSet.insert("VALUE");
-    
+    keywordSet.insert("INTEGER");
+    keywordSet.insert("REAL");
+    keywordSet.insert("CHARACTER");
     
     fin.open("output.txt");
 
@@ -203,7 +207,7 @@ int main()
                     }
                 }
                 
-                if(!(last == "VALUE"))
+                if(!(last == "INTEGER" || last == "REAL" || last == "CHARACTER"))
                 {   
                     all_token.push_back(make_pair(l,stoi(r)));
                 }
@@ -222,6 +226,7 @@ int main()
             
         }
  
+        cout<<"\n\nPrinting ALL TOKENS : \n\n";
         cout<<all_token;
     }
     cout<<endl<<endl;
@@ -244,9 +249,9 @@ int main()
     
     // cout<<select<<endl<<endl;
 
-    cout << "\nPrinting SELECT : \n";
+    cout << "\nPrinting SELECT : \n\n";
     cout << select;
-    cout << endl;
+    cout << endl <<endl;
 
     for(unsigned int i = 0; i <select.size(); i++)
     {
