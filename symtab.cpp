@@ -12,6 +12,7 @@ class Attribute
     string d_type;
     //int lineno;
     int scope_level;
+    int line_no;
     
     public:
 
@@ -23,9 +24,16 @@ class Attribute
         d_type = dtype;
         //lineno = line;
     }
+
+    Attribute(string dtype, int line_no)
+    {
+        this->d_type = dtype;
+        this->line_no = line_no;
+    }
+
     void print()
     {
-        cout << d_type;
+        cout << d_type << "\t" << line_no ;
     }
     friend class Symtable;
 };
@@ -88,7 +96,7 @@ class Symtable
         return 0;
     }
     
-    int insert_into_table(string id_name, string data_type)
+    int insert_into_table(string id_name, string data_type, int line_no)
     {
         if(check_level(id_name,current_scope_level))
         {
@@ -97,7 +105,7 @@ class Symtable
         }
         else
         {
-            hashtabs[current_scope_level][id_name] = Attribute(data_type);
+            hashtabs[current_scope_level][id_name] = Attribute(data_type, line_no);
             return 1;
         }
     }
@@ -109,7 +117,7 @@ ostream& operator<<(ostream& os, const vector<S>& vector)
     // Printing all the elements
     // using <<
     for (auto element : vector) {
-        os << element << " ";
+        os << element.first << "," << element.second << " "; 
     }
     return os;
 }
@@ -119,8 +127,8 @@ int main()
     ifstream fin;
     int k=0;
     string word;
-    vector<string> all_token;
-    vector<string> select; 
+    vector<pair<string,int>> all_token;     // token content, line number
+    vector<pair<string,int>> select; 
     int flag = 0;
     Symtable st;
     
@@ -162,17 +170,51 @@ int main()
     
     
     fin.open("output.txt");
+
+    string last;
  
     while (fin) {
  
         while(fin >> word)
         {
-            if(flag ==1)
+            if(flag == 0 && word != "->")
             {
-                all_token.push_back(word);
+                last = word;
+            }
+            else if(flag ==1)
+            {
+                string l="";
+                string r="";
+                int s=(int)(word.size());
+                bool to_left=true;
+                for(int i=0;i<s;i++)
+                {
+                    if(word[i]=='@')
+                    {
+                        to_left=false;
+                    }
+                    else if(to_left)
+                    {
+                        l.push_back(word[i]);
+                    }
+                    else
+                    {
+                        r.push_back(word[i]);
+                    }
+                }
+                
+                if(!(last == "VALUE"))
+                {   
+                    all_token.push_back(make_pair(l,stoi(r)));
+                }
+                else
+                {
+                    all_token.push_back(make_pair(last,stoi(r)));
+                }
+                
                 flag = 0;
             }
-            
+
             if(word == "->")
             {
                 flag = 1;
@@ -193,44 +235,49 @@ int main()
         // if(str[i] == "}")
         //   st.delet();
         
-        if (keywordSet.find(all_token[i]) == keywordSet.end())
+        if (keywordSet.find(all_token[i].first) == keywordSet.end())
         {
             //cout<< all_token[i] << " ";
             select.push_back(all_token[i]);
         }
     }
     
-    cout<<select<<endl<<endl;
+    // cout<<select<<endl<<endl;
+
+    cout << "\nPrinting SELECT : \n";
+    cout << select;
+    cout << endl;
+
     for(unsigned int i = 0; i <select.size(); i++)
     {
-        if(select[i] == "{")
+        if(select[i].first == "{")
           st.create();
         
-        else if(select[i] == "}")
+        else if(select[i].first == "}")
           st.delet();
          
-        else if(select[i] == "int" || select[i] == "real" || select[i] == "char")
+        else if(select[i].first == "int" || select[i].first == "real" || select[i].first == "char")
         {
             int j = i + 1;
-            while(select[j]!= ";")
+            while(select[j].first!= ";")
             {
-                flag = st.insert_into_table(select[j], select[i]);
+                flag = st.insert_into_table(select[j].first, select[i].first, select[j].second);
                 if(flag == 1)
-                  cout << "Symbol: "<<select[j]<<" inserted into table successfully!\n";
+                  cout << "Symbol: "<<select[j].first<<" inserted into table successfully!\n";
                 j++;
             }
         }
         
-        else if(select[i] == ";")
+        else if(select[i].first == ";")
           continue;
         
         else 
         {
-            flag = st.lookup_table(select[i]);
+            flag = st.lookup_table(select[i].first);
             if(flag == 1)
               continue;
             else
-              cout << "Error in code.. Usage of "<<select[i]<<" without declaration..\n";
+              cout << "Error in code.. Usage of "<<select[i].first<<" without declaration..\n";
         }
     }
     
