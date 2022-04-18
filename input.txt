@@ -1,5 +1,9 @@
 main(){
     char x = 'a';
     int a = 8;
+    if (a > 10)
+    {
+        int y = 45;
+    }
     cout<<a;
 }
