@@ -9,8 +9,8 @@ void testing(){
 
 class State {
     int stateId;
-    string tokenClass;     
-    vector<pair<char, State>> nextStates;    // each element will look like <char, nextState>
+    string tokenClass;
+    vector<pair<char, int>> nextStates;    // each element will look like <char, nextState>
     int isFinal;
 
     public:
@@ -48,11 +48,11 @@ class State {
             stateId = id;
         }
 
-        void setNextStates(char ch, State nextState){
-            nextStates.push_back(make_pair(ch, nextState));
+        void setNextStates(char ch, State nextState){    
+            nextStates.push_back(make_pair(ch, nextState.getId()));
         }
 
-        vector<pair<char, State>> getNextStates(){
+        vector<pair<char, int>> getNextStates(){
             return nextStates;
         }
 
@@ -93,11 +93,16 @@ class DFA {
             State *newState = new State(statesList.size());
             if(final){
                 newState->setFinal();
-            }   
+            }
             newState->setTokenClassForFinalState(t_class);
 
             statesList.push_back(*newState);
             return newState->getId();
+        }
+
+        void addNextStateForAState(int fromState, int toState, vector <char> v)
+        {
+            for(char c:v)   addNextStateForAState(fromState, toState, c);
         }
 
         void addNextStateForAState(int fromState, int toState, char ch){
@@ -108,6 +113,7 @@ class DFA {
             return &statesList[id];
         }
 
+        // checks if there is any next state for a particular id on given input
         bool isNextStatePresentForGivenInput(int id, char ch){
             State state = statesList[id];
             for(auto item:state.getNextStates()){
@@ -122,15 +128,3 @@ class DFA {
             return statesList;
         }
 };
-
-
-// tokens = ["EOF", "VALUE", "relational_op", "ID", .....]
-// b = [[2, 3, "y"], [], []]
-
-// tokens = [tokenClasses]
-// 
-// b = [[fromStateId, toStateId, readCharacter]]
-
-// andy
-
-// i -> 

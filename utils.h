@@ -18,7 +18,7 @@ bool isValidKeyWord(string token){
 }
 
 bool isSpecialCharacter(char ch){
-    if((ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122) || (ch >= 48 && ch <=57) || ch == 95){
+    if((ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122)){
         return false;
     }
     return true;
@@ -52,7 +52,7 @@ string getKeyFromGrammar(string value){
         return "mul_op";
     } else if(value == "int" || value == "real" || value == "char"){
         return "d_type";
-    } else if(value == "<" || value == ">" || value == ">=" || 
+    } else if(value == "<" || value == ">" || value == ">=" ||
                 value == "<=" || value == "==" || value == "!="){
         return "comp_op";
     } else if(value == "("){
@@ -94,39 +94,21 @@ string getKeyFromGrammar(string value){
     }
 }
 
-
+// class to store the tokens which are outputed as a file
 class Tokens {
     vector<pair<pair<string, string>, int>> tokensDictionary;
     vector<string> tokens;
 
     public:
         Tokens(){
-            
-        }
 
-        bool isSpaceToken(string str){
-            if(str == "")
-                return true;
-            return false;
         }
 
         void addPair(string key, string value, int line){
             tokensDictionary.push_back(make_pair(make_pair(key, value), line));
         }
 
-        void addToken(string token, int line){
-            string key = getKeyFromGrammar(token);
-            string value = token;
-
-            if(!isSpaceToken(token))
-                addPair(key, value, line);
-        }
-
         void displayTokensList(){
-            // for(string token : tokens){
-            //     cout<<token<<"\n";
-            //     // cout<<token.length()<<endl;
-            // }
             for(auto item : tokensDictionary){
                 cout<<item.first.first<<" -> "<<item.first.second<<"@"<<item.second<<endl;
             }
