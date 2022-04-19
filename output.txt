@@ -36,7 +36,7 @@ EOL -> ;@9
 output -> cout@10
 o_cas -> <<@10
 CHARACTER -> 'Y'@10
-invalid ->  ;@10
+EOL ->  ;@10
 ID -> x@11
 equals -> =@11
 INTEGER -> 20@11

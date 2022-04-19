@@ -1,89 +1,90 @@
-34
+35
 
 S : St ;
-St : "main" "(" ")" "{" statements "}" ;
+St : "MAIN" "open_first_bracket" "close_first_bracket" "open_second_bracket" statements "close_second_bracket" ;
 statements : %empty ;
-statements : statement ";" statements ;
+statements : statement "EOL" statements ;
 statement : dec_st ; 
 statement : math_st ;
 statement : io ;
 statement : if_st ; 
-dec_st : "dtype" d_prod ;
+dec_st : "d_type" d_prod ;
 d_prod : d_nat ;
-d_prod : d_prod "," d_nat ;
+d_prod : d_prod "COMMA" d_nat ;
 d_nat : "ID" ;
 d_nat : math_st ;
-math_st : "ID" "equ" VALUE ;
+math_st : "ID" "equals" VALUE ;
 io : "input" inp ;
 io : "output" opt ;
 inp : "i_cas" "ID" ;
 inp : inp "i_cas" "ID" ;
 opt : "o_cas" VALUE ;
 opt : opt "o_cas" VALUE ;
-if_st : "if_token" "(" comp_st ")" "then_token" "{" statements "}" CONT ;
-CONT : "else_token" "{" statements "}" ;
+if_st : "if_token" "open_first_bracket" comp_st "close_first_bracket" "then_token" "open_second_bracket" statements "close_second_bracket" CONT ;
+CONT : "else_token" "open_second_bracket" statements "close_second_bracket" ;
 CONT : %empty ;
 comp_st : VALUE "comp_op" VALUE ;
-comp_st : "(" comp_st ")" "r_o" "(" comp_st ")" ;
-VALUE : VALUE "addop" TERM ;
-VALUE : "addop" TERM ;
+comp_st : "open_first_bracket" comp_st "close_first_bracket" "relational_op" "open_first_bracket" comp_st "close_first_bracket" ;
+VALUE : VALUE "add_op" TERM ;
+VALUE : "add_op" TERM ;
 VALUE : TERM ;
-TERM : TERM "mulop" FAC ;
+TERM : TERM "mul_op" FAC ;
 TERM : FAC ;
 FAC : "ID" ;
-FAC : "NUMBER" ;
+FAC : "REAL" ;
+FAC : "INTEGER" ;
 FAC : "CHARACTER" ;
-FAC : "(" VALUE ")" ;
+FAC : "open_first_bracket" VALUE "close_first_bracket" ;
 
 50
 
-"main"
-"("
-")"
-"{"
-"dtype"
+"MAIN"
+"open_first_bracket"
+"close_first_bracket"
+"open_second_bracket"
+"d_type"
 "ID"
-","
+"COMMA"
 "ID"
-"equ"
-"("
-"NUMBER"
-"mulop"
-"NUMBER"
-")"
-";"
+"equals"
+"open_first_bracket"
+"INTEGER"
+"mul_op"
+"INTEGER"
+"close_first_bracket"
+"EOL"
 "if_token" 
-"("
+"open_first_bracket"
 "ID" 
 "comp_op"
-"NUMBER"
-")"
+"INTEGER"
+"close_first_bracket"
 "then_token"
-"{"
+"open_second_bracket"
 "ID"
-"equ"
+"equals"
 "ID"
-"addop"
-"NUMBER"
-";"
-"}"
+"add_op"
+"INTEGER"
+"EOL"
+"close_second_bracket"
 "else_token"
-"{"
+"open_second_bracket"
 "output"
 "o_cas"
-"NUMBER"
-"mulop"
-"NUMBER"
-"addop"
-"NUMBER"
+"INTEGER"
+"mul_op"
+"INTEGER"
+"add_op"
+"INTEGER"
 "o_cas"
 "CHARACTER"
-";"
-"}"
-";"
+"EOL"
+"close_second_bracket"
+"EOL"
 "output"
 "o_cas"
 "ID"
-";"
-"}"
+"EOL"
+"close_second_bracket"
 $

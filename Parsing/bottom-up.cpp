@@ -33,85 +33,85 @@ struct sym
 
         if(s == "statements")
         {
-            ret.push_back(sym("\"}\""));
+            ret.push_back(sym("\"close_second_bracket\""));
         }
         else if(s == "statement")
         {
-            ret.push_back(sym("\";\""));
+            ret.push_back(sym("\"EOL\""));
         }
         else if(s == "dec_st")
         {
-            ret.push_back(sym("\";\""));
+            ret.push_back(sym("\"EOL\""));
         }
         else if(s == "math_st")
         {
-            ret.push_back(sym("\";\""));
-            ret.push_back(sym("\",\""));
+            ret.push_back(sym("\"EOL\""));
+            ret.push_back(sym("\"COMMA\""));
         }
         else if(s == "io")
         {
-            ret.push_back(sym("\";\""));
+            ret.push_back(sym("\"EOL\""));
         }
         else if(s == "if_st")
         {
-            ret.push_back(sym("\";\""));
+            ret.push_back(sym("\"EOL\""));
         }        
         else if(s == "d_prod")
         {
-            ret.push_back(sym("\";\""));
-            ret.push_back(sym("\",\""));
+            ret.push_back(sym("\"EOL\""));
+            ret.push_back(sym("\"COMMA\""));
         }
         else if(s == "d_nat")
         {
-            ret.push_back(sym("\";\""));
-            ret.push_back(sym("\",\""));
+            ret.push_back(sym("\"EOL\""));
+            ret.push_back(sym("\"COMMA\""));
         }
         else if(s == "VALUE")
         {
-            ret.push_back(sym("\";\""));
-            ret.push_back(sym("\",\""));
-            ret.push_back(sym("\")\""));
+            ret.push_back(sym("\"EOL\""));
+            ret.push_back(sym("\"COMMA\""));
+            ret.push_back(sym("\"close_first_bracket\""));
             ret.push_back(sym("\"o_cas\""));
             ret.push_back(sym("\"comp_op\""));
-            ret.push_back(sym("\"addop\""));
+            ret.push_back(sym("\"add_op\""));
         }
         else if(s == "inp")
         {
-            ret.push_back(sym("\";\""));
+            ret.push_back(sym("\"EOL\""));
             ret.push_back(sym("\"i_cas\""));
         }
         else if(s == "opt")
         {
-            ret.push_back(sym("\";\""));
+            ret.push_back(sym("\"EOL\""));
             ret.push_back(sym("\"o_cas\""));
         }
         else if(s == "comp_st")
         {
-            ret.push_back(sym("\")\""));
+            ret.push_back(sym("\"close_first_bracket\""));
         }
         else if(s == "CONT")
         {
-            ret.push_back(sym("\";\""));
+            ret.push_back(sym("\"EOL\""));
         }
         else if(s == "TERM")
         {
-            ret.push_back(sym("\";\""));
-            ret.push_back(sym("\",\""));
-            ret.push_back(sym("\")\""));
+            ret.push_back(sym("\"EOL\""));
+            ret.push_back(sym("\"COMMA\""));
+            ret.push_back(sym("\"close_first_bracket\""));
             ret.push_back(sym("\"o_cas\""));
             ret.push_back(sym("\"comp_op\""));
-            ret.push_back(sym("\"addop\""));
-            ret.push_back(sym("\"mulop\""));
+            ret.push_back(sym("\"add_op\""));
+            ret.push_back(sym("\"mul_op\""));
         }
         else if(s == "FAC")
         {
-            ret.push_back(sym("\";\""));
-            ret.push_back(sym("\",\""));
-            ret.push_back(sym("\")\""));
+            ret.push_back(sym("\"EOL\""));
+            ret.push_back(sym("\"COMMA\""));
+            ret.push_back(sym("\"close_first_bracket\""));
             ret.push_back(sym("\"o_cas\""));
             ret.push_back(sym("\"comp_op\""));
-            ret.push_back(sym("\"addop\""));
-            ret.push_back(sym("\"mulop\""));
+            ret.push_back(sym("\"add_op\""));
+            ret.push_back(sym("\"mul_op\""));
         }
 
         return ret;
@@ -393,6 +393,12 @@ vector <sym> globalsymbols;
 vector <int> graph[1000];
 int symid = 0;
 
+string convertToString(char* a)
+{
+    string s = a;
+    return s;
+}
+
 signed main()
 {
     freopen("input.txt", "r", stdin);
@@ -436,20 +442,35 @@ signed main()
         cout << item << endl;
     }
 
-    int term_cnt;
-    cin >> term_cnt;
-
     vector <sym> term_list;
-    for(int i = 0; i < term_cnt; i ++)
+    
+    FILE *fp;
+    fp = fopen("../output.txt", "r");
+
+    int itr = 0;
+    char buf[100];
+    while (fscanf(fp, "%s\n", buf) == 1)
     {
-        string str;
-        cin >> str;
-        sym s(str);
-        s.id = symid;
-        symid ++;
-        globalsymbols.push_back(s);
-        term_list.push_back(s);
+        if(itr >= 5 && (itr - 5) % 3 == 0)
+        {
+            string str = "\"" + convertToString(buf) + "\"";
+            sym s(str);
+            s.id = symid;
+            symid ++;
+            globalsymbols.push_back(s);
+            term_list.push_back(s);
+        }
+        itr ++;
     }
+
+    fclose(fp);
+
+    string str_g = "$";
+    sym s_g(str_g);
+    s_g.id = symid;
+    symid ++;
+    globalsymbols.push_back(s_g);
+    term_list.push_back(s_g);
 
     reverse(term_list.begin(), term_list.end());
 
@@ -585,7 +606,6 @@ signed main()
     
     cout << endl;
 
-    FILE *fp;
     fp = fopen("graph.md", "w");
 
     fprintf(fp, "```mermaid\ngraph TD\n");
