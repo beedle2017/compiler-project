@@ -1,7 +1,7 @@
 main()
 {
     int r;
-    real x=2, y=4;
+    real x=2.0, y=4.0;
     char z;
     if(x > 20) then
     {
