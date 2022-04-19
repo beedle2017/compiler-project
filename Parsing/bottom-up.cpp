@@ -4,13 +4,15 @@
 #include <stack>
 #include <set>
 #include <stdio.h>
+#include <map>
 
 using namespace std;
 
 struct sym
 {
     string s;
-    int id;
+    int id = -5;
+    string actual;
     
     sym()
     {
@@ -22,100 +24,18 @@ struct sym
         s = str;
     }
 
+    sym(string str, string _actual)
+    {
+        s = str;
+        actual = "\"" + _actual + "\"";
+    }
+
     bool is_terminal()
     {
         return s[0]=='"';
     }
 
-    vector <sym> follow()
-    {
-        vector <sym> ret;
-
-        if(s == "statements")
-        {
-            ret.push_back(sym("\"close_second_bracket\""));
-        }
-        else if(s == "statement")
-        {
-            ret.push_back(sym("\"EOL\""));
-        }
-        else if(s == "dec_st")
-        {
-            ret.push_back(sym("\"EOL\""));
-        }
-        else if(s == "math_st")
-        {
-            ret.push_back(sym("\"EOL\""));
-            ret.push_back(sym("\"COMMA\""));
-        }
-        else if(s == "io")
-        {
-            ret.push_back(sym("\"EOL\""));
-        }
-        else if(s == "if_st")
-        {
-            ret.push_back(sym("\"EOL\""));
-        }        
-        else if(s == "d_prod")
-        {
-            ret.push_back(sym("\"EOL\""));
-            ret.push_back(sym("\"COMMA\""));
-        }
-        else if(s == "d_nat")
-        {
-            ret.push_back(sym("\"EOL\""));
-            ret.push_back(sym("\"COMMA\""));
-        }
-        else if(s == "VALUE")
-        {
-            ret.push_back(sym("\"EOL\""));
-            ret.push_back(sym("\"COMMA\""));
-            ret.push_back(sym("\"close_first_bracket\""));
-            ret.push_back(sym("\"o_cas\""));
-            ret.push_back(sym("\"comp_op\""));
-            ret.push_back(sym("\"add_op\""));
-        }
-        else if(s == "inp")
-        {
-            ret.push_back(sym("\"EOL\""));
-            ret.push_back(sym("\"i_cas\""));
-        }
-        else if(s == "opt")
-        {
-            ret.push_back(sym("\"EOL\""));
-            ret.push_back(sym("\"o_cas\""));
-        }
-        else if(s == "comp_st")
-        {
-            ret.push_back(sym("\"close_first_bracket\""));
-        }
-        else if(s == "CONT")
-        {
-            ret.push_back(sym("\"EOL\""));
-        }
-        else if(s == "TERM")
-        {
-            ret.push_back(sym("\"EOL\""));
-            ret.push_back(sym("\"COMMA\""));
-            ret.push_back(sym("\"close_first_bracket\""));
-            ret.push_back(sym("\"o_cas\""));
-            ret.push_back(sym("\"comp_op\""));
-            ret.push_back(sym("\"add_op\""));
-            ret.push_back(sym("\"mul_op\""));
-        }
-        else if(s == "FAC")
-        {
-            ret.push_back(sym("\"EOL\""));
-            ret.push_back(sym("\"COMMA\""));
-            ret.push_back(sym("\"close_first_bracket\""));
-            ret.push_back(sym("\"o_cas\""));
-            ret.push_back(sym("\"comp_op\""));
-            ret.push_back(sym("\"add_op\""));
-            ret.push_back(sym("\"mul_op\""));
-        }
-
-        return ret;
-    }
+    vector <sym> follow();
 };
 
 ostream & operator << (ostream &out, const sym &s)
@@ -399,6 +319,109 @@ string convertToString(char* a)
     return s;
 }
 
+map <sym, set<sym>> firstset;
+map <sym, set<sym>> followset;
+
+void findfirst()
+{
+    int n = (int)(productions.size());
+    for(int i = n - 1; i >= 0; --i)
+    {
+        for(sym s: productions[i].rhs)
+        if(s.is_terminal())
+        {
+            firstset[s].insert(s);
+        }
+        else if(s.s == "%empty")
+        {
+            firstset[s].insert(s);
+        }
+    }
+
+    while (true)
+    {
+        bool has_changed = false;
+
+        for(int i = n - 1; i >= 0; --i)
+        {
+            for(sym n_s : firstset[productions[i].rhs[0]])
+            {
+                if(firstset[productions[i].lhs].count(n_s) == 0)
+                {
+                    has_changed = true;
+                    firstset[productions[i].lhs].insert(n_s);
+                }
+            }
+        }
+
+        if(!has_changed) break;
+    }
+}
+
+void findfollow()
+{
+    findfirst();
+
+    int n = (int)(productions.size());
+
+    while (true)
+    {
+        bool has_changed = false;
+
+        for(int i = 0; i <= n - 1; i ++)
+        {
+            int s = productions[i].count_rhs();
+            for(int j = 0; j < s; j ++)
+            {
+                int k = j + 1;
+                while(true)
+                {
+                    if(k >= s)
+                    {
+                        for(sym s : followset[productions[i].lhs])
+                        {
+                            if(followset[productions[i].rhs[j]].count(s) == 0)
+                            {
+                                has_changed = true;
+                                followset[productions[i].rhs[j]].insert(s);
+                            }
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        bool nullable = false;
+                        for(sym s : firstset[productions[i].rhs[k]])
+                        {
+                            if(s.s == "%empty") nullable = true;
+
+                            if(followset[productions[i].rhs[j]].count(s) == 0)
+                            {
+                                has_changed = true;
+                                followset[productions[i].rhs[j]].insert(s);
+                            }
+                        }
+                        if(!nullable) break;
+                    }
+                    k += 1;
+                }
+            }
+        }
+
+        if(!has_changed) break;
+    }
+}
+
+vector <sym> sym::follow()
+{
+    vector <sym> ret;
+    for(sym s : followset[*this])
+    {
+        ret.push_back(s);
+    }
+    return ret;
+}
+
 signed main()
 {
     freopen("input.txt", "r", stdin);
@@ -423,6 +446,8 @@ signed main()
 
         productions.push_back(production(lhs, rhs));
     }
+
+    findfollow();
 
     vector <production> plist;
     plist.push_back(production(productions[0].lhs, productions[0].rhs, 0));
@@ -449,12 +474,26 @@ signed main()
 
     int itr = 0;
     char buf[100];
+    char store[100];
     while (fscanf(fp, "%s\n", buf) == 1)
     {
         if(itr >= 5 && (itr - 5) % 3 == 0)
         {
-            string str = "\"" + convertToString(buf) + "\"";
-            sym s(str);
+            strcpy(store, buf);
+        }
+        else if(itr >= 5 && (itr - 5) % 3 == 2)
+        {
+            for(int i = 0; ; i++)
+            {
+                if(buf[i] == '@')
+                {
+                    buf[i] = '\0';
+                    break;
+                }
+            }
+
+            string str = "\"" + convertToString(store) + "\"";
+            sym s(str, convertToString(buf));
             s.id = symid;
             symid ++;
             globalsymbols.push_back(s);
@@ -614,7 +653,14 @@ signed main()
     {
         for (int j : graph[i])
         {
-            fprintf(fp, "%d(%s) --> %d(%s);\n", i, globalsymbols[i].s.c_str(), j, globalsymbols[j].s.c_str());
+            if(! globalsymbols[j].is_terminal())
+            {
+                fprintf(fp, "%d(%s) --> %d(%s);\n", i, globalsymbols[i].s.c_str(), j, globalsymbols[j].s.c_str());
+            }
+            else
+            {
+                fprintf(fp, "%d(%s) --> %d(%s);\n", i, globalsymbols[i].s.c_str(), j, globalsymbols[j].actual.c_str());
+            }
         }
     }
 
