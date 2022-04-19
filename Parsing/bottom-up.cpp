@@ -12,6 +12,7 @@ struct sym
 {
     string s;
     int id = -5;
+    string actual;
     
     sym()
     {
@@ -21,6 +22,12 @@ struct sym
     sym(string str)
     {
         s = str;
+    }
+
+    sym(string str, string _actual)
+    {
+        s = str;
+        actual = "\"" + _actual + "\"";
     }
 
     bool is_terminal()
@@ -467,12 +474,26 @@ signed main()
 
     int itr = 0;
     char buf[100];
+    char store[100];
     while (fscanf(fp, "%s\n", buf) == 1)
     {
         if(itr >= 5 && (itr - 5) % 3 == 0)
         {
-            string str = "\"" + convertToString(buf) + "\"";
-            sym s(str);
+            strcpy(store, buf);
+        }
+        else if(itr >= 5 && (itr - 5) % 3 == 2)
+        {
+            for(int i = 0; ; i++)
+            {
+                if(buf[i] == '@')
+                {
+                    buf[i] = '\0';
+                    break;
+                }
+            }
+
+            string str = "\"" + convertToString(store) + "\"";
+            sym s(str, convertToString(buf));
             s.id = symid;
             symid ++;
             globalsymbols.push_back(s);
@@ -632,7 +653,14 @@ signed main()
     {
         for (int j : graph[i])
         {
-            fprintf(fp, "%d(%s) --> %d(%s);\n", i, globalsymbols[i].s.c_str(), j, globalsymbols[j].s.c_str());
+            if(! globalsymbols[j].is_terminal())
+            {
+                fprintf(fp, "%d(%s) --> %d(%s);\n", i, globalsymbols[i].s.c_str(), j, globalsymbols[j].s.c_str());
+            }
+            else
+            {
+                fprintf(fp, "%d(%s) --> %d(%s);\n", i, globalsymbols[i].s.c_str(), j, globalsymbols[j].actual.c_str());
+            }
         }
     }
 
