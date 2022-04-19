@@ -1,2 +1,3 @@
 remove avigyan bhaat
 make VALUE as INTEGER, CHARACTER, REAL
+initialize DFA

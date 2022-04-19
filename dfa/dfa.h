@@ -3,11 +3,15 @@
 
 using namespace std;
 
+void testing(){
+    cout<<"testing"<<endl;
+}
+
 class State {
     int stateId;
     string tokenClass;     
     vector<pair<char, State>> nextStates;    // each element will look like <char, nextState>
-    bool isFinal;
+    int isFinal;
 
     public:
         State(int id){
@@ -16,7 +20,7 @@ class State {
             isFinal = false;
         }
 
-        bool getIsFinal(){
+        int getIsFinal(){
             return isFinal;
         }
 
@@ -60,6 +64,11 @@ class State {
             }
             return State(-1);
         }
+
+        friend ostream& operator<<(ostream &out, State state){
+            out << state.getId() << " " << state.getIsFinal() << " " << state.getTokenClassForFinalStates();
+            return out;
+        }
 };
 
 
@@ -80,7 +89,7 @@ class DFA {
             return startId;
         }
 
-        int addNewStateToDFA(bool final, string t_class){
+        int addNewStateToDFA(int final, string t_class){
             State *newState = new State(statesList.size());
             if(final){
                 newState->setFinal();
@@ -95,8 +104,8 @@ class DFA {
             statesList[fromState].setNextStates(ch, statesList[toState]);
         }
 
-        State getStateById(int id){
-            return statesList[id];
+        State* getStateById(int id){
+            return &statesList[id];
         }
 
         bool isNextStatePresentForGivenInput(int id, char ch){
@@ -107,6 +116,10 @@ class DFA {
                 }
             }
             return false;
+        }
+
+        vector<State> getStateList(){
+            return statesList;
         }
 };
 
