@@ -1,7 +1,7 @@
 #include "dfa.h"
 #include<set>
 
-#define TOTAL_STATES 61
+#define TOTAL_STATES 62
 
 vector <char> dollar;
 
@@ -32,12 +32,12 @@ void initDFA(DFA* dfa){
                                      "i_cas", "comp_op", "equals", "comp_op", "comp_op", "open_first_bracket", "close_first_bracket",
                                      "open_second_bracket", "close_second_bracket", "relational_op", "input", "output", "d_type",
                                      "else_token", "if_token", "d_type", "MAIN", "then_token", "INTEGER", "INTEGER", "REAL", "CHARACTER", "ID", "semicolon", "d_type",
-                                   "ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID"};
+                                   "ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID", ","};
 
     // final state ids from dfa
     vector<int> finalStateIds = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19,
                            22, 25, 28, 31, 35, 37, 39, 43, 47, 48, 49, 51, 54, 55, 60, 59, 20,
-                           21, 23, 24, 26, 27, 29, 30, 32, 33, 34, 36, 38, 40, 41, 42, 44, 45, 46, 56, 57, 58};
+                           21, 23, 24, 26, 27, 29, 30, 32, 33, 34, 36, 38, 40, 41, 42, 44, 45, 46, 56, 57, 58, 61};
 
     // non-final state ids from dfa - unused, but provided here for reference
     vector<int> nonFinalStateIds = {0, 14, 50, 52, 53 };
@@ -160,5 +160,7 @@ void initDFA(DFA* dfa){
     dfa->addNextStateForAState(44, 55, dollar - vector <char> ({'h'}));
     dfa->addNextStateForAState(45, 55, dollar - vector <char> ({'e'}));
     dfa->addNextStateForAState(46, 55, dollar - vector <char> ({'n'}));
+
+    dfa->addNextStateForAState(0, 61, ',');
 
 }
