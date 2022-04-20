@@ -2,7 +2,9 @@ main()
 {
     int r;
     real x, y=6.5;
-    char z;
+    char z, another;
+
+    int mainvariable = 6*20-100; 
     
     if(x > 20) then
     {
