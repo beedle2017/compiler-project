@@ -14,7 +14,7 @@ St -> MAIN open_first_bracket close_first_bracket  . open_second_bracket stateme
 I (4)
 St -> MAIN open_first_bracket close_first_bracket open_second_bracket  . statements close_second_bracket 
 statements ->  . %empty 
-statements ->  . statement EOL statements 
+statements ->  . statement semicolon statements 
 statement ->  . dec_st 
 statement ->  . math_st 
 statement ->  . io 
@@ -277,7 +277,7 @@ if_st -> if_token open_first_bracket comp_st close_first_bracket then_token  . o
 I (48)
 if_st -> if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket  . statements close_second_bracket CONT 
 statements ->  . %empty 
-statements ->  . statement EOL statements 
+statements ->  . statement semicolon statements 
 statement ->  . dec_st 
 statement ->  . math_st 
 statement ->  . io 
@@ -368,12 +368,12 @@ I (65)
 statement -> math_st  . 
 
 I (66)
-statements -> statement  . EOL statements 
+statements -> statement  . semicolon statements 
 
 I (67)
-statements -> statement EOL  . statements 
+statements -> statement semicolon  . statements 
 statements ->  . %empty 
-statements ->  . statement EOL statements 
+statements ->  . statement semicolon statements 
 statement ->  . dec_st 
 statement ->  . math_st 
 statement ->  . io 
@@ -385,7 +385,7 @@ math_st ->  . ID equals VALUE
 dec_st ->  . d_type d_prod 
 
 I (68)
-statements -> statement EOL statements  . 
+statements -> statement semicolon statements  . 
 
 I (69)
 if_st -> if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements  . close_second_bracket CONT 
@@ -401,7 +401,7 @@ CONT -> else_token  . open_second_bracket statements close_second_bracket
 I (72)
 CONT -> else_token open_second_bracket  . statements close_second_bracket 
 statements ->  . %empty 
-statements ->  . statement EOL statements 
+statements ->  . statement semicolon statements 
 statement ->  . dec_st 
 statement ->  . math_st 
 statement ->  . io 
@@ -435,862 +435,58 @@ S -> St  .
 
 STACK : 0 
 SYMBOLS : 
-INPUT : MAIN open_first_bracket close_first_bracket open_second_bracket d_type ID EOL d_type ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+INPUT : MAIN open_first_bracket close_first_bracket open_second_bracket d_type ID semicolon d_type ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 
 SYMBOLS : MAIN 
-INPUT : open_first_bracket close_first_bracket open_second_bracket d_type ID EOL d_type ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+INPUT : open_first_bracket close_first_bracket open_second_bracket d_type ID semicolon d_type ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 2 
 SYMBOLS : MAIN open_first_bracket 
-INPUT : close_first_bracket open_second_bracket d_type ID EOL d_type ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+INPUT : close_first_bracket open_second_bracket d_type ID semicolon d_type ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 2 3 
 SYMBOLS : MAIN open_first_bracket close_first_bracket 
-INPUT : open_second_bracket d_type ID EOL d_type ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+INPUT : open_second_bracket d_type ID semicolon d_type ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 2 3 4 
 SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket 
-INPUT : d_type ID EOL d_type ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+INPUT : d_type ID semicolon d_type ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 2 3 4 23 
 SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket d_type 
-INPUT : ID EOL d_type ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+INPUT : ID semicolon d_type ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 2 3 4 23 24 
 SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket d_type ID 
-INPUT : EOL d_type ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+INPUT : semicolon d_type ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 2 3 4 23 25 
 SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket d_type d_nat 
-INPUT : EOL d_type ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+INPUT : semicolon d_type ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 2 3 4 23 26 
 SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket d_type d_prod 
-INPUT : EOL d_type ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+INPUT : semicolon d_type ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 2 3 4 62 
 SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket dec_st 
-INPUT : EOL d_type ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+INPUT : semicolon d_type ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 2 3 4 66 
 SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement 
-INPUT : EOL d_type ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+INPUT : semicolon d_type ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 2 3 4 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL 
-INPUT : d_type ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement semicolon 
+INPUT : d_type ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 2 3 4 66 67 23 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type 
-INPUT : ID equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement semicolon d_type 
+INPUT : ID ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
 STACK : 0 1 2 3 4 66 67 23 24 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type ID 
-INPUT : equals REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
+SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement semicolon d_type ID 
+INPUT : ID equals REAL semicolon d_type ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID equals REAL ID equals REAL semicolon d_type ID semicolon output o_cas CHARACTER semicolon ID equals INTEGER semicolon close_second_bracket else_token open_second_bracket d_type ID ID semicolon d_type ID semicolon input i_cas ID semicolon output o_cas CHARACTER semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon ID equals INTEGER semicolon d_type ID equals INTEGER semicolon d_type ID equals REAL semicolon output o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon close_second_bracket else_token open_second_bracket output o_cas ID o_cas ID semicolon if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket output o_cas ID semicolon d_type ID semicolon output o_cas CHARACTER o_cas ID semicolon close_second_bracket semicolon close_second_bracket semicolon close_second_bracket $ 
 
-STACK : 0 1 2 3 4 66 67 23 24 6 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type ID equals 
-INPUT : REAL COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 24 6 10 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type ID equals REAL 
-INPUT : COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 24 6 13 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type ID equals FAC 
-INPUT : COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 24 6 14 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type ID equals TERM 
-INPUT : COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 24 6 22 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type ID equals VALUE 
-INPUT : COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 29 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type math_st 
-INPUT : COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 25 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type d_nat 
-INPUT : COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 26 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type d_prod 
-INPUT : COMMA ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 26 27 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type d_prod COMMA 
-INPUT : ID equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 26 27 24 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type d_prod COMMA ID 
-INPUT : equals REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 26 27 24 6 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type d_prod COMMA ID equals 
-INPUT : REAL EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 26 27 24 6 10 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type d_prod COMMA ID equals REAL 
-INPUT : EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 26 27 24 6 13 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type d_prod COMMA ID equals FAC 
-INPUT : EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 26 27 24 6 14 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type d_prod COMMA ID equals TERM 
-INPUT : EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 26 27 24 6 22 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type d_prod COMMA ID equals VALUE 
-INPUT : EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 26 27 29 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type d_prod COMMA math_st 
-INPUT : EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 26 27 28 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type d_prod COMMA d_nat 
-INPUT : EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 23 26 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL d_type d_prod 
-INPUT : EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 62 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL dec_st 
-INPUT : EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement 
-INPUT : EOL d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL 
-INPUT : d_type ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 23 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL d_type 
-INPUT : ID EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 23 24 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL d_type ID 
-INPUT : EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 23 25 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL d_type d_nat 
-INPUT : EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 23 26 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL d_type d_prod 
-INPUT : EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 62 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL dec_st 
-INPUT : EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement 
-INPUT : EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL 
-INPUT : if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token 
-INPUT : open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket 
-INPUT : ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 8 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket ID 
-INPUT : comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 13 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket FAC 
-INPUT : comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 14 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket TERM 
-INPUT : comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 41 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket VALUE 
-INPUT : comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 41 35 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket VALUE comp_op 
-INPUT : INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 41 35 9 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket VALUE comp_op INTEGER 
-INPUT : close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 41 35 13 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket VALUE comp_op FAC 
-INPUT : close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 41 35 14 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket VALUE comp_op TERM 
-INPUT : close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 41 35 36 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket VALUE comp_op VALUE 
-INPUT : close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st 
-INPUT : close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket 
-INPUT : then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token 
-INPUT : open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket 
-INPUT : d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 23 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket d_type 
-INPUT : ID EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 23 24 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket d_type ID 
-INPUT : EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 23 25 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket d_type d_nat 
-INPUT : EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 23 26 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket d_type d_prod 
-INPUT : EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 62 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket dec_st 
-INPUT : EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement 
-INPUT : EOL d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL 
-INPUT : d_type ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 23 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL d_type 
-INPUT : ID EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 23 24 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL d_type ID 
-INPUT : EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 23 25 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL d_type d_nat 
-INPUT : EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 23 26 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL d_type d_prod 
-INPUT : EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 62 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL dec_st 
-INPUT : EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement 
-INPUT : EOL output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL 
-INPUT : output o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output 
-INPUT : o_cas CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 56 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output o_cas 
-INPUT : CHARACTER EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 56 7 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output o_cas CHARACTER 
-INPUT : EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 56 13 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output o_cas FAC 
-INPUT : EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 56 14 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output o_cas TERM 
-INPUT : EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 56 57 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output o_cas VALUE 
-INPUT : EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 58 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output opt 
-INPUT : EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 64 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL io 
-INPUT : EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement 
-INPUT : EOL ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL 
-INPUT : ID equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 5 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL ID 
-INPUT : equals INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 5 6 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL ID equals 
-INPUT : INTEGER EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 5 6 9 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL ID equals INTEGER 
-INPUT : EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 5 6 13 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL ID equals FAC 
-INPUT : EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 5 6 14 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL ID equals TERM 
-INPUT : EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 5 6 22 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL ID equals VALUE 
-INPUT : EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 65 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL math_st 
-INPUT : EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL statement 
-INPUT : EOL close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL statement EOL 
-INPUT : close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL statement EOL 
-INPUT : %empty close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 66 67 61 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL statement EOL %empty 
-INPUT : close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL statement EOL statements 
-INPUT : close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL statements 
-INPUT : close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statements 
-INPUT : close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statements 
-INPUT : close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements 
-INPUT : close_second_bracket else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket 
-INPUT : else_token open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token 
-INPUT : open_second_bracket d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket 
-INPUT : d_type ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 23 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket d_type 
-INPUT : ID EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 23 24 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket d_type ID 
-INPUT : EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 23 25 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket d_type d_nat 
-INPUT : EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 23 26 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket d_type d_prod 
-INPUT : EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 62 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket dec_st 
-INPUT : EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement 
-INPUT : EOL d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL 
-INPUT : d_type ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 23 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL d_type 
-INPUT : ID EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 23 24 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL d_type ID 
-INPUT : EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 23 25 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL d_type d_nat 
-INPUT : EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 23 26 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL d_type d_prod 
-INPUT : EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 62 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL dec_st 
-INPUT : EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement 
-INPUT : EOL input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL 
-INPUT : input i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 49 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL input 
-INPUT : i_cas ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 49 50 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL input i_cas 
-INPUT : ID EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 49 50 51 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL input i_cas ID 
-INPUT : EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 49 52 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL input inp 
-INPUT : EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 64 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL io 
-INPUT : EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement 
-INPUT : EOL output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL 
-INPUT : output o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 55 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL output 
-INPUT : o_cas CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 55 56 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL output o_cas 
-INPUT : CHARACTER EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 55 56 7 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL output o_cas CHARACTER 
-INPUT : EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 55 56 13 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL output o_cas FAC 
-INPUT : EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 55 56 14 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL output o_cas TERM 
-INPUT : EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 55 56 57 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL output o_cas VALUE 
-INPUT : EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 55 58 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL output opt 
-INPUT : EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 64 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL io 
-INPUT : EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement 
-INPUT : EOL if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL 
-INPUT : if_token open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token 
-INPUT : open_first_bracket ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket 
-INPUT : ID comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 8 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket ID 
-INPUT : comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 13 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket FAC 
-INPUT : comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 14 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket TERM 
-INPUT : comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 41 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket VALUE 
-INPUT : comp_op INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 41 35 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket VALUE comp_op 
-INPUT : INTEGER close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 41 35 9 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket VALUE comp_op INTEGER 
-INPUT : close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 41 35 13 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket VALUE comp_op FAC 
-INPUT : close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 41 35 14 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket VALUE comp_op TERM 
-INPUT : close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 41 35 36 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket VALUE comp_op VALUE 
-INPUT : close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st 
-INPUT : close_first_bracket then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket 
-INPUT : then_token open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token 
-INPUT : open_second_bracket d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket 
-INPUT : d_type ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 23 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket d_type 
-INPUT : ID EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 23 24 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket d_type ID 
-INPUT : EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 23 25 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket d_type d_nat 
-INPUT : EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 23 26 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket d_type d_prod 
-INPUT : EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 62 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket dec_st 
-INPUT : EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement 
-INPUT : EOL d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL 
-INPUT : d_type ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 23 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL d_type 
-INPUT : ID EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 23 24 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL d_type ID 
-INPUT : EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 23 25 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL d_type d_nat 
-INPUT : EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 23 26 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL d_type d_prod 
-INPUT : EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 62 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL dec_st 
-INPUT : EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement 
-INPUT : EOL output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL 
-INPUT : output o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output 
-INPUT : o_cas CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 56 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output o_cas 
-INPUT : CHARACTER EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 56 7 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output o_cas CHARACTER 
-INPUT : EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 56 13 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output o_cas FAC 
-INPUT : EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 56 14 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output o_cas TERM 
-INPUT : EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 56 57 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output o_cas VALUE 
-INPUT : EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 55 58 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL output opt 
-INPUT : EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 64 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL io 
-INPUT : EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement 
-INPUT : EOL close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL 
-INPUT : close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL 
-INPUT : %empty close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 61 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL %empty 
-INPUT : close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statement EOL statements 
-INPUT : close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statement EOL statements 
-INPUT : close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statement EOL statements 
-INPUT : close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 69 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements 
-INPUT : close_second_bracket EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 69 70 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket 
-INPUT : EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 69 70 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket 
-INPUT : %empty EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 69 70 75 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket %empty 
-INPUT : EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 30 31 45 46 47 48 69 70 76 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket CONT 
-INPUT : EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 63 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL if_st 
-INPUT : EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL statement 
-INPUT : EOL close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL statement EOL 
-INPUT : close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL statement EOL 
-INPUT : %empty close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 66 67 61 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL statement EOL %empty 
-INPUT : close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL statement EOL statements 
-INPUT : close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statement EOL statements 
-INPUT : close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statement EOL statements 
-INPUT : close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statement EOL statements 
-INPUT : close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statement EOL statements 
-INPUT : close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 73 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statements 
-INPUT : close_second_bracket EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 71 72 73 74 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket else_token open_second_bracket statements close_second_bracket 
-INPUT : EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 30 31 45 46 47 48 69 70 76 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_token open_first_bracket comp_st close_first_bracket then_token open_second_bracket statements close_second_bracket CONT 
-INPUT : EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 63 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL if_st 
-INPUT : EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement 
-INPUT : EOL ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL 
-INPUT : ID equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 5 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL ID 
-INPUT : equals INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 5 6 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL ID equals 
-INPUT : INTEGER EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 5 6 9 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL ID equals INTEGER 
-INPUT : EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 5 6 13 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL ID equals FAC 
-INPUT : EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 5 6 14 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL ID equals TERM 
-INPUT : EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 5 6 22 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL ID equals VALUE 
-INPUT : EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 65 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL math_st 
-INPUT : EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 66 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL statement 
-INPUT : EOL close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL statement EOL 
-INPUT : close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 66 67 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL statement EOL 
-INPUT : %empty close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 66 67 61 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL statement EOL %empty 
-INPUT : close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL statement EOL statements 
-INPUT : close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statement EOL statements 
-INPUT : close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statement EOL statements 
-INPUT : close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statement EOL statements 
-INPUT : close_second_bracket $ 
-
-STACK : 0 1 2 3 4 66 67 68 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statement EOL statements 
-INPUT : close_second_bracket $ 
-
-STACK : 0 1 2 3 4 77 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statements 
-INPUT : close_second_bracket $ 
-
-STACK : 0 1 2 3 4 77 78 
-SYMBOLS : MAIN open_first_bracket close_first_bracket open_second_bracket statements close_second_bracket 
-INPUT : $ 
-
-STACK : 0 79 
-SYMBOLS : St 
-INPUT : $ 
-
-
+ERROR

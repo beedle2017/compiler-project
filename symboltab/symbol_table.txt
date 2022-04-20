@@ -1,0 +1,60 @@
+
+
+Printing ALL TOKENS : 
+
+main,1   (,1   ),1   {,2   int,3   r,3   ;,3   real,4   x,4   y,4   =,4   REAL,4   ;,4   char,5   z,5   ;,5   if,7   (,7   x,7   >,7   INTEGER,7   ),7   then,7   {,8   char,9   eps,9   ;,9   real,10   def,10   =,10   REAL,10   abc,10   =,10   REAL,10   ;,10   int,11   z,11   ;,11   cout,12   <<,12   CHARACTER,12   ;,12   x,13   =,13   INTEGER,13   ;,13   },14   else,15   {,16   char,17   alpha,17   beta,17   ;,17   int,18   gg,18   ;,18   cin,19   >>,19   x,19   ;,19   cout,20   <<,20   CHARACTER,20   ;,20   if,21   (,21   x,21   >,21   INTEGER,21   ),21   then,21   {,22   int,23   num,23   ;,23   real,24   number,24   ;,24   cout,25   <<,25   CHARACTER,25   <<,25   x,25   ;,25   },26   ;,26   },27   ;,27   x,29   =,29   INTEGER,29   ;,29   int,31   a,31   =,31   INTEGER,31   ;,31   real,32   b,32   =,32   REAL,32   ;,32   cout,33   <<,33   a,33   ;,33   if,35   (,35   a,35   ==,35   INTEGER,35   ),35   then,35   {,36   cout,37   <<,37   b,37   ;,37   },38   else,39   {,40   cout,41   <<,41   a,41   <<,41   b,41   ;,41   if,42   (,42   a,42   >,42   INTEGER,42   ),42   then,42   {,43   cout,44   <<,44   io,44   ;,44   real,45   io,45   ;,45   cout,46   <<,46   CHARACTER,46   <<,46   a,46   ;,46   },47   ;,47   },48   ;,48   },49   
+
+
+Printing SELECT : 
+
+{,2   int,3   r,3   ;,3   real,4   x,4   y,4   ;,4   char,5   z,5   ;,5   x,7   {,8   char,9   eps,9   ;,9   real,10   def,10   abc,10   ;,10   int,11   z,11   ;,11   ;,12   x,13   ;,13   },14   {,16   char,17   alpha,17   beta,17   ;,17   int,18   gg,18   ;,18   x,19   ;,19   ;,20   x,21   {,22   int,23   num,23   ;,23   real,24   number,24   ;,24   x,25   ;,25   },26   ;,26   },27   ;,27   x,29   ;,29   int,31   a,31   ;,31   real,32   b,32   ;,32   a,33   ;,33   a,35   {,36   b,37   ;,37   },38   {,40   a,41   b,41   ;,41   a,42   {,43   io,44   ;,44   real,45   io,45   ;,45   a,46   ;,46   },47   ;,47   },48   ;,48   },49   
+
+Symbol: r inserted into table successfully!
+Symbol: x inserted into table successfully!
+Symbol: y inserted into table successfully!
+Symbol: z inserted into table successfully!
+Symbol: eps inserted into table successfully!
+Symbol: def inserted into table successfully!
+Symbol: abc inserted into table successfully!
+Symbol: z inserted into table successfully!
+
+			Exiting current scope of level 1
+----------------------------------------------------------------------------
+Variable_Name	Variable_Data_Type	Line_of_Declaration	Scope_Level
+abc		     real			10		    1
+z		     int			11		    1
+def		     real			10		    1
+eps		     char			9		    1
+----------------------------------------------------------------------------
+
+Symbol: alpha inserted into table successfully!
+Symbol: beta inserted into table successfully!
+Symbol: gg inserted into table successfully!
+Symbol: num inserted into table successfully!
+Symbol: number inserted into table successfully!
+
+			Exiting current scope of level 2
+----------------------------------------------------------------------------
+Variable_Name	Variable_Data_Type	Line_of_Declaration	Scope_Level
+number		     real			24		    2
+num		     int			23		    2
+----------------------------------------------------------------------------
+
+
+			Exiting current scope of level 1
+----------------------------------------------------------------------------
+Variable_Name	Variable_Data_Type	Line_of_Declaration	Scope_Level
+beta		     char			17		    1
+gg		     int			18		    1
+alpha		     char			17		    1
+----------------------------------------------------------------------------
+
+Symbol: a inserted into table successfully!
+Symbol: b inserted into table successfully!
+
+			Exiting current scope of level 1
+----------------------------------------------------------------------------
+Variable_Name	Variable_Data_Type	Line_of_Declaration	Scope_Level
+----------------------------------------------------------------------------
+
+Error in code.. Usage of io without declaration.. at Line number : 44

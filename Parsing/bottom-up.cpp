@@ -470,7 +470,7 @@ signed main()
     vector <sym> term_list;
     
     FILE *fp;
-    fp = fopen("../output.txt", "r");
+    fp = fopen("../dfa/output.txt", "r");
 
     int itr = 0;
     char buf[100];

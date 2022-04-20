@@ -128,6 +128,7 @@ ostream& operator<<(ostream& os, const vector<S>& vector)
 
 int main()
 {
+    freopen("symbol_table.txt","w",stdout);
     ifstream fin;
     int k=0;
     string word;
@@ -174,7 +175,7 @@ int main()
     keywordSet.insert("REAL");
     keywordSet.insert("CHARACTER");
     
-    fin.open("output.txt");
+    fin.open("../dfa/output.txt");
 
     string last;
  
