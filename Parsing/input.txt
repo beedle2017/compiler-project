@@ -3,7 +3,7 @@
 S : St ;
 St : "MAIN" "open_first_bracket" "close_first_bracket" "open_second_bracket" statements "close_second_bracket" ;
 statements : %empty ;
-statements : statement "EOL" statements ;
+statements : statement "semicolon" statements ;
 statement : dec_st ; 
 statement : math_st ;
 statement : io ;
