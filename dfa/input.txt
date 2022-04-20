@@ -1,11 +1,49 @@
-main(){
-    int a=5, e, c;
-    real b=3.24;
+main()
+{
+    int r;
+    real x, y=6.5;
+    char z;
+    
+    if(x > 20) then
+    {
+        char eps;
+        real def=2.3, abc=4.5;
+        int z;
+        cout << 'Y' ;
+        x = 20;
+    }
+    else
+    {
+        char alpha, beta;
+        int gg;
+        cin >> x;
+        cout << 'N';
+        if (x > 10) then
+        {
+            int num;
+            real number;
+            cout << 'Y' << x;
+        };
+    };
+    
+    x = 20;
+    
+    int a=5;
+    real b=3.2;
     cout<<a;
-    if(a == 5) then{
+    
+    if(a == 5) then
+    {
         cout<<b;
     }
-    else{
+    else
+    {
         cout<<a<<b;
+        if (a > 10) then
+        {
+            cout << io;
+            real io;
+            cout << 'Z' << a;
+        };
     };
 }

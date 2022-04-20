@@ -73,7 +73,8 @@ class Symtable
     {
         if(current_scope_level >= 0)
         {
-            cout<<"\n\n-------------------------------------------------------------------";
+            cout<<"\n\t\t\tExiting current scope of level "<<current_scope_level;
+            cout<<"\n----------------------------------------------------------------------------";
             cout<<"\nVariable_Name\tVariable_Data_Type\tLine_of_Declaration\tScope_Level\n";
             for(auto item: hashtabs[current_scope_level])
             {
@@ -81,7 +82,7 @@ class Symtable
                 item.second.print();
                 cout<<"\t\t    "<<current_scope_level<<endl;
             }
-            cout<<"----------------------------------------------------------------------";
+            cout<<"----------------------------------------------------------------------------";
             cout<<endl<<endl;
             --current_scope_level;
             hashtabs.pop_back();
@@ -282,7 +283,10 @@ int main()
             if(flag == 1)
               continue;
             else
-              cout << "Error in code.. Usage of "<<select[i].first<<" without declaration..\n";
+              {
+                  cout << "Error in code.. Usage of "<<select[i].first<<" without declaration.. at Line number : "<<select[i].second<<endl;
+                  break;
+              }
         }
     }
     
