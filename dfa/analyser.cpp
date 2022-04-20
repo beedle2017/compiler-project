@@ -3,21 +3,6 @@
 #include<set>
 #include "../utils.h"
 
-// function to log the output token stream to file
-void writeOutputToFile(vector<pair<pair<string, string>, int>> tokens){
-	ofstream file;
-	file.open("output.txt");
-    file<<"***TOKENS AFTER SCANNING INPUT FILE***"<<endl<<endl;
-	for(auto item : tokens){
-        if(item.first.first != "VALUE"){
-            file<<item.first.first<<" -> "<<item.first.second<<"@"<<item.second<<endl;
-        } else {
-            file<<item.first.first<<" -> "<<item.first.first<<"@"<<item.second<<endl;
-        }
-	}
-	file.close();
-}
-
 // function to clear output file
 void clearOutputFile(){
     ofstream file;
@@ -136,10 +121,7 @@ int main(){
 
         parseInputLine(dfa, &tokens_object, inputLine, lineNumber);
         lineNumber++;
-        if(tokens_object.isErrorTokenPresent())
-            exit(0);
     }
 
-    vector<pair<pair<string, string>, int>> tokensDictionary = tokens_object.getTokenDictionary();
-    writeOutputToFile(tokensDictionary);
+    tokens_object.isErrorTokenPresent();
 }

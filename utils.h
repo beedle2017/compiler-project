@@ -4,6 +4,8 @@
 #include<regex>
 using namespace std;
 
+void writeOutputToFile(vector<pair<pair<string, string>, int>> tokens);
+
 // class to store the tokens which are outputed as a file
 class Tokens {
     vector<pair<pair<string, string>, int>> tokensDictionary;
@@ -28,17 +30,40 @@ class Tokens {
             return tokensDictionary;
         }
 
-        bool isErrorTokenPresent(){
+        void isErrorTokenPresent(){
+            int flag = 0;
+            cout<<endl;
+
             for(auto item:tokensDictionary){
                 if(item.first.first == "null"){
-                    cout<<"Lexical Error at line "<<item.second<<".";
-                    return true;
+                    flag = 1;
+                    cout<<"Lexical Error at line "<<item.second<<".\n";
                 }
             }
-            return false;
+            if(flag == 0){
+                writeOutputToFile(tokensDictionary);
+                cout<<"\nLexical Tokens Generated Successfully in output.txt\n";
+            } else {
+                cout<<"\nTerminating analyser with errors...\n";
+            }
         }
-
 };
+
+
+// function to log the output token stream to file
+void writeOutputToFile(vector<pair<pair<string, string>, int>> tokens){
+	ofstream file;
+	file.open("output.txt");
+    file<<"***TOKENS AFTER SCANNING INPUT FILE***"<<endl<<endl;
+	for(auto item : tokens){
+        if(item.first.first != "VALUE"){
+            file<<item.first.first<<" -> "<<item.first.second<<"@"<<item.second<<endl;
+        } else {
+            file<<item.first.first<<" -> "<<item.first.first<<"@"<<item.second<<endl;
+        }
+	}
+	file.close();
+}
 
 
 bool isSpecialCharacter(char ch){

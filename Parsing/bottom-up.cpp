@@ -451,6 +451,30 @@ signed main()
 
     findfollow();
 
+    cout << "\nFIRST SET: \n\n";
+    for(auto x : firstset)
+    {
+        cout << x.first << " -> ";
+        for(auto y : x.second)
+        {
+            cout << y << " , ";
+        }
+        cout << endl;
+    }
+
+    cout << "\nFOLLOW SET: \n\n";
+    for(auto x : followset)
+    {
+        cout << x.first << " -> ";
+        for(auto y : x.second)
+        {
+            cout << y << " , ";
+        }
+        cout << endl;
+    }
+
+    cout << endl;
+
     vector <production> plist;
     plist.push_back(production(productions[0].lhs, productions[0].rhs, 0));
     item_set is = item_set(plist);
