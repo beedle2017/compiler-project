@@ -8,11 +8,13 @@ d_type -> int@2
 ID -> a@2
 equals -> =@2
 INTEGER -> 5@2
+ID -> e@2
+ID -> c@2
 semicolon -> ;@2
 d_type -> real@3
 ID -> b@3
 equals -> =@3
-REAL -> 3.2@3
+REAL -> 3.24@3
 semicolon -> ;@3
 output -> cout@4
 o_cas -> <<@4

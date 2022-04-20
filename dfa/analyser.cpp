@@ -18,6 +18,15 @@ void writeOutputToFile(vector<pair<pair<string, string>, int>> tokens){
 	file.close();
 }
 
+// function to clear output file
+void clearOutputFile(){
+    ofstream file;
+	file.open("output.txt");
+    file<<"";
+    file.close();
+}
+
+
 bool isAlphabet(char ch){
     if((ch >= 65 && ch <= 90) || (ch >= 97 && ch <= 122)){
         return false;
@@ -79,7 +88,7 @@ void parseInputLine(DFA* dfa, Tokens* tokens_object, string inputLine, int lineN
         if(lastChar != '\0' && currentWord.length() > 0 && ( (contains(alphabets, currentChar) ^ contains(alphabets, lastChar)) || (lastChar == '(' && currentChar == ')') || (lastChar == '{' && currentChar == ')') || (currentChar == ';') || (currentChar == ' ' || currentChar == '\t' || currentChar == '\n') || (lastChar == ')' && currentChar == '{') || (contains(alphabets_2, currentChar) ^ contains(alphabets_2, lastChar)) )){
             string tokenClass = dfa->getStateById(currentStateID)->getTokenClassForFinalStates();
             
-            cout<<currentWord<<" "<<currentStateID<<" "<<tokenClass<<endl;
+            // cout<<currentWord<<" "<<currentStateID<<" "<<tokenClass<<endl;
             (*tokens_object).addPair(tokenClass, currentWord, lineNumber);
             
             currentStateID = dfa->getStartID();
@@ -96,9 +105,6 @@ void parseInputLine(DFA* dfa, Tokens* tokens_object, string inputLine, int lineN
             if(dfa->isNextStatePresentForGivenInput(currentStateID, inputToDFA)){
                 currentWord += currentChar;
                 currentStateID = dfa->getStateById(currentStateID)->next(inputToDFA).getId();
-            }
-            else{
-              cout<<"mayday mayday mayday\n";
             }
         }
         lastChar = currentChar;
@@ -119,24 +125,21 @@ int main(){
     string inputLine = "";
     int lineNumber = 1;
     Tokens tokens_object = Tokens();
+    int flag = 0;
 
     init_vectors();
 
     DFA* dfa = new DFA();
     initDFA(dfa);
-    // vector<State> list = dfa->getStateList();
-    // for(auto item:list){
-    //     cout<<item<<endl;
-    // }
 
     while(getline(file, inputLine)){
 
         parseInputLine(dfa, &tokens_object, inputLine, lineNumber);
         lineNumber++;
-        cout<<lineNumber;
+        if(tokens_object.isErrorTokenPresent())
+            exit(0);
     }
 
-    // tokens_object.displayTokensList();
     vector<pair<pair<string, string>, int>> tokensDictionary = tokens_object.getTokenDictionary();
     writeOutputToFile(tokensDictionary);
 }

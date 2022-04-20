@@ -118,4 +118,14 @@ class Tokens {
             return tokensDictionary;
         }
 
+        bool isErrorTokenPresent(){
+            for(auto item:tokensDictionary){
+                if(item.first.first == "null"){
+                    cout<<"Lexical Error at line "<<item.second<<".";
+                    return true;
+                }
+            }
+            return false;
+        }
+
 };

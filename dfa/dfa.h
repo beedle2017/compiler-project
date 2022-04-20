@@ -10,7 +10,7 @@ void testing(){
 class State {
     int stateId;
     string tokenClass;
-    vector<pair<char, int>> nextStates;    // each element will look like <char, nextState>
+    vector<pair<char, int>> nextStates;    // each element will look like <char, nextStateID>
     int isFinal;
 
     public:
