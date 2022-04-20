@@ -9,6 +9,7 @@ ID -> r@3
 semicolon -> ;@3
 d_type -> real@4
 ID -> x@4
+COMMA -> ,@4
 ID -> y@4
 equals -> =@4
 REAL -> 6.5@4
@@ -31,6 +32,7 @@ d_type -> real@10
 ID -> def@10
 equals -> =@10
 REAL -> 2.3@10
+COMMA -> ,@10
 ID -> abc@10
 equals -> =@10
 REAL -> 4.5@10
@@ -51,6 +53,7 @@ else_token -> else@15
 open_second_bracket -> {@16
 d_type -> char@17
 ID -> alpha@17
+COMMA -> ,@17
 ID -> beta@17
 semicolon -> ;@17
 d_type -> int@18

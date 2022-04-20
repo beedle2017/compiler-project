@@ -32,7 +32,7 @@ void initDFA(DFA* dfa){
                                      "i_cas", "comp_op", "equals", "comp_op", "comp_op", "open_first_bracket", "close_first_bracket",
                                      "open_second_bracket", "close_second_bracket", "relational_op", "input", "output", "d_type",
                                      "else_token", "if_token", "d_type", "MAIN", "then_token", "INTEGER", "INTEGER", "REAL", "CHARACTER", "ID", "semicolon", "d_type",
-                                   "ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID", ","};
+                                   "ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID","ID", "COMMA"};
 
     // final state ids from dfa
     vector<int> finalStateIds = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19,
