@@ -5,6 +5,8 @@
 #include <set>
 #include <stdio.h>
 #include <map>
+#include <string.h>
+#include <algorithm>
 
 using namespace std;
 

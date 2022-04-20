@@ -20,7 +20,7 @@ COMMA -> ,@5
 ID -> another@5
 semicolon -> ;@5
 d_type -> int@7
-ID -> mainvariable@7
+ID -> anirbantesting@7
 equals -> =@7
 INTEGER -> 6@7
 mul_op -> *@7

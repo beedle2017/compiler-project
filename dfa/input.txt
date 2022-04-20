@@ -4,7 +4,7 @@ main()
     real x, y=6.5;
     char z, another;
 
-    int mainvariable = 6*20-100; 
+    int anirbantesting = 6*20-100; 
     
     if(x > 20) then
     {

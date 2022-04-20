@@ -41,7 +41,7 @@ graph TD
 195(VALUE) --> 192(VALUE);
 195(VALUE) --> 25("-");
 195(VALUE) --> 194(TERM);
-196(math_st) --> 20("mainvariable");
+196(math_st) --> 20("anirbantesting");
 196(math_st) --> 21("=");
 196(math_st) --> 195(VALUE);
 197(d_nat) --> 196(math_st);

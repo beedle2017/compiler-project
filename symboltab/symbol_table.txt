@@ -2,19 +2,19 @@
 
 Printing ALL TOKENS : 
 
-main,1   (,1   ),1   {,2   int,3   r,3   ;,3   real,4   x,4   ,,4   y,4   =,4   REAL,4   ;,4   char,5   z,5   ,,5   another,5   ;,5   int,7   mainvariable,7   =,7   INTEGER,7   *,7   INTEGER,7   -,7   INTEGER,7   ;,7   if,9   (,9   x,9   >,9   INTEGER,9   ),9   then,9   {,10   char,11   eps,11   ;,11   real,12   def,12   =,12   REAL,12   ,,12   abc,12   =,12   REAL,12   ;,12   int,13   z,13   ;,13   cout,14   <<,14   CHARACTER,14   ;,14   x,15   =,15   INTEGER,15   ;,15   },16   else,17   {,18   char,19   alpha,19   ,,19   beta,19   ;,19   int,20   gg,20   ;,20   cin,21   >>,21   x,21   ;,21   cout,22   <<,22   CHARACTER,22   ;,22   if,23   (,23   x,23   >,23   INTEGER,23   ),23   then,23   {,24   int,25   num,25   ;,25   real,26   number,26   ;,26   cout,27   <<,27   CHARACTER,27   <<,27   x,27   ;,27   },28   ;,28   },29   ;,29   x,31   =,31   INTEGER,31   ;,31   int,33   a,33   =,33   INTEGER,33   ;,33   real,34   b,34   =,34   REAL,34   ;,34   cout,35   <<,35   a,35   ;,35   if,37   (,37   a,37   ==,37   INTEGER,37   ),37   then,37   {,38   cout,39   <<,39   b,39   ;,39   },40   else,41   {,42   cout,43   <<,43   a,43   <<,43   b,43   ;,43   if,44   (,44   a,44   >,44   INTEGER,44   ),44   then,44   {,45   cout,46   <<,46   io,46   ;,46   real,47   io,47   ;,47   cout,48   <<,48   CHARACTER,48   <<,48   a,48   ;,48   },49   ;,49   },50   ;,50   },51   
+main,1   (,1   ),1   {,2   int,3   r,3   ;,3   real,4   x,4   ,,4   y,4   =,4   REAL,4   ;,4   char,5   z,5   ,,5   another,5   ;,5   int,7   anirbantesting,7   =,7   INTEGER,7   *,7   INTEGER,7   -,7   INTEGER,7   ;,7   if,9   (,9   x,9   >,9   INTEGER,9   ),9   then,9   {,10   char,11   eps,11   ;,11   real,12   def,12   =,12   REAL,12   ,,12   abc,12   =,12   REAL,12   ;,12   int,13   z,13   ;,13   cout,14   <<,14   CHARACTER,14   ;,14   x,15   =,15   INTEGER,15   ;,15   },16   else,17   {,18   char,19   alpha,19   ,,19   beta,19   ;,19   int,20   gg,20   ;,20   cin,21   >>,21   x,21   ;,21   cout,22   <<,22   CHARACTER,22   ;,22   if,23   (,23   x,23   >,23   INTEGER,23   ),23   then,23   {,24   int,25   num,25   ;,25   real,26   number,26   ;,26   cout,27   <<,27   CHARACTER,27   <<,27   x,27   ;,27   },28   ;,28   },29   ;,29   x,31   =,31   INTEGER,31   ;,31   int,33   a,33   =,33   INTEGER,33   ;,33   real,34   b,34   =,34   REAL,34   ;,34   cout,35   <<,35   a,35   ;,35   if,37   (,37   a,37   ==,37   INTEGER,37   ),37   then,37   {,38   cout,39   <<,39   b,39   ;,39   },40   else,41   {,42   cout,43   <<,43   a,43   <<,43   b,43   ;,43   if,44   (,44   a,44   >,44   INTEGER,44   ),44   then,44   {,45   cout,46   <<,46   io,46   ;,46   real,47   io,47   ;,47   cout,48   <<,48   CHARACTER,48   <<,48   a,48   ;,48   },49   ;,49   },50   ;,50   },51   
 
 
 Printing SELECT : 
 
-{,2   int,3   r,3   ;,3   real,4   x,4   y,4   ;,4   char,5   z,5   another,5   ;,5   int,7   mainvariable,7   ;,7   x,9   {,10   char,11   eps,11   ;,11   real,12   def,12   abc,12   ;,12   int,13   z,13   ;,13   ;,14   x,15   ;,15   },16   {,18   char,19   alpha,19   beta,19   ;,19   int,20   gg,20   ;,20   x,21   ;,21   ;,22   x,23   {,24   int,25   num,25   ;,25   real,26   number,26   ;,26   x,27   ;,27   },28   ;,28   },29   ;,29   x,31   ;,31   int,33   a,33   ;,33   real,34   b,34   ;,34   a,35   ;,35   a,37   {,38   b,39   ;,39   },40   {,42   a,43   b,43   ;,43   a,44   {,45   io,46   ;,46   real,47   io,47   ;,47   a,48   ;,48   },49   ;,49   },50   ;,50   },51   
+{,2   int,3   r,3   ;,3   real,4   x,4   y,4   ;,4   char,5   z,5   another,5   ;,5   int,7   anirbantesting,7   ;,7   x,9   {,10   char,11   eps,11   ;,11   real,12   def,12   abc,12   ;,12   int,13   z,13   ;,13   ;,14   x,15   ;,15   },16   {,18   char,19   alpha,19   beta,19   ;,19   int,20   gg,20   ;,20   x,21   ;,21   ;,22   x,23   {,24   int,25   num,25   ;,25   real,26   number,26   ;,26   x,27   ;,27   },28   ;,28   },29   ;,29   x,31   ;,31   int,33   a,33   ;,33   real,34   b,34   ;,34   a,35   ;,35   a,37   {,38   b,39   ;,39   },40   {,42   a,43   b,43   ;,43   a,44   {,45   io,46   ;,46   real,47   io,47   ;,47   a,48   ;,48   },49   ;,49   },50   ;,50   },51   
 
 Symbol: r inserted into table successfully!
 Symbol: x inserted into table successfully!
 Symbol: y inserted into table successfully!
 Symbol: z inserted into table successfully!
 Symbol: another inserted into table successfully!
-Symbol: mainvariable inserted into table successfully!
+Symbol: anirbantesting inserted into table successfully!
 Symbol: eps inserted into table successfully!
 Symbol: def inserted into table successfully!
 Symbol: abc inserted into table successfully!
@@ -23,8 +23,8 @@ Symbol: z inserted into table successfully!
 			Exiting current scope of level 1
 ----------------------------------------------------------------------------
 Variable_Name	Variable_Data_Type	Line_of_Declaration	Scope_Level
-abc		     real			12		    1
 z		     int			13		    1
+abc		     real			12		    1
 def		     real			12		    1
 eps		     char			11		    1
 ----------------------------------------------------------------------------
