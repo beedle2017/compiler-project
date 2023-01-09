@@ -5,6 +5,13 @@
         "ostream": "cpp",
         "iosfwd": "cpp",
         "vector": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "algorithm": "cpp",
+        "memory": "cpp",
+        "regex": "cpp",
+        "xhash": "cpp",
+        "xlocnum": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp"
     }
 }

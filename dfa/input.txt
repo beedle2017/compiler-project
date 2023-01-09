@@ -4,13 +4,14 @@ main()
     real x, y=6.5;
     char z, another;
 
-    int avigyantesting = 6*20-100; 
+    int avigyantesting = 6*20; 
     
     if(x > 20) then
     {
-        char eps;
+        char spe;
         real def=2.3, abc=4.5;
         int z;
+        cout<<spe;
         cout << 'Y' ;
         x = 20;
     }
